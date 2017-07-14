@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(caret)\nlibrary(tm)\n\n# Training data.\n\ndata <- c('Yo apoyo a laso, vamos por el cambio.', 'Yo apoyo a lenin, vamos por mas.')\n\ncorpus <- VCorpus(VectorSource(data))\n\n# Create a document term matrix.\ntdm <- DocumentTermMatrix(corpus, list(removePunctuation = TRUE, stopwords = TRUE, stemming = TRUE, removeNumbers = TRUE))\n\n# Convert to a data.frame for training and assign a classification (factor) to each document.\ntrain <- as.matrix(tdm)\ntrain <- cbind(train, c(1, 2))\n\ncolnames(train)[ncol(train)] <- 'y'\ntrain <- as.data.frame(train)\ntrain$y <- as.factor(train$y)\n\n# Train.\nfit <- train(y ~ ., data = train, method = 'bayesglm')\n#fit <- train(y ~ ., data = train, method = \"svmLinear\")\nwarnings()\n\n\n# Check accuracy on training.\np<- predict(fit, newdata = train)\n\nconfusionMatrix(p, c(1, 2))\n\n\n\n# Test data.\ndata2 <- c('Voy a votar por lenin para ir por mas')\ncorpus <- VCorpus(VectorSource(data2))\ntdm <- DocumentTermMatrix(corpus, control = list(dictionary = Terms(tdm), removePunctuation = TRUE, stopwords = TRUE, stemming = TRUE, removeNumbers = TRUE))\ntest <- as.matrix(tdm)\n\n# Check accuracy on test.\npredict(fit, newdata = test)\n",
+    "created" : 1499386409220.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "772134248",
+    "id" : "943FC0A2",
+    "lastKnownWriteTime" : 1499402521,
+    "last_content_update" : 1499402521409,
+    "path" : "~/R/ProyectoGP32/Proyecto2.R",
+    "project_path" : "Proyecto2.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

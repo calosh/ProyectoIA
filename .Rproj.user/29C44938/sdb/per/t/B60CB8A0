@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "install.packages(\"tm\") # Text Mining\ninstall.packages(\"SnowballC\")\ninstall.packages(\"caTools\")\ninstall.packages(\"caret\")\ninstall.packages(\"e1071\")\ninstall.packages(\"wordcloud\")\n\nlibrary(stringr)\nlibrary(tm) # text mining\nlibrary(SnowballC)  # Raiz palabras\n\n\nlibrary(caret)\nlibrary(e1071)\nlibrary(plyr)\n\nlibrary(caTools)\n\n\n\ngetwd()\n\ntweets = read.csv(\"prueba.csv\", sep = \",\" , encoding=\"UTF-8\", stringsAsFactors=FALSE)\ntable(tweets$sentimiento)\n\ncorpus = Corpus(VectorSource(tweets$tweet))\n\nprint(corpus)\n\nlength(corpus)\n\ncontent(corpus[[12]])\ncontent(corpus[[1500]])\n\n\ncorpus = tm_map(corpus, tolower) # texto a minusculas\ncorpus = tm_map(corpus, PlainTextDocument) # \ncorpus <- tm_map(corpus, removePunctuation)\ncorpus = tm_map(corpus, removeWords, c(stopwords(\"es\"),\"elecciones2017ec\"))\ncorpus = tm_map(corpus, stripWhitespace)\ncorpus = tm_map(corpus, stemDocument, language=\"es\")\n\ncontent(corpus[[12]])\ncontent(corpus[[1500]])\n\nfrequencies = DocumentTermMatrix(corpus)\n\nfrequencies\n#inspect(frequencies[50:60, 100:200])\n\n# Terminos mas frecuentes\nfindFreqTerms(frequencies, lowfreq = 50)\n\n# Eliminar palabras poco repetidas\nfrequencies\nsparse <- removeSparseTerms(frequencies, sparse = 0.995)\nsparse\nfindFreqTerms(sparse, lowfreq = 70)\n\ntweetsSparse <- as.data.frame(as.matrix(sparse))\n\ncolnames(tweetsSparse) = make.names(colnames(tweetsSparse))\n\ntweetsSparse$sentimiento <- tweets$sentimiento\n\n\nset.seed(12)\n\n\n#split <- sample.split(tweetsSparse$sentimiento, SplitRatio = 0.8)\n\n\n#trainSparse = subset(tweetsSparse, split=TRUE)\ntrainSparse = tweetsSparse[1:1720,]\n#testSparse = subset(tweetsSparse, split=FALSE)\ntestSparse = tweetsSparse[1721:4645,]\n\n\ntable(testSparse$sentimiento)\n\n# Evaluar el modelo\n\n\n# Entrenar modelo\nSVM <- svm(as.factor(sentimiento)~ ., data = trainSparse)\nsummary(SVM)\ntrainSparse\n\npredictSVM <- predict(SVM, newdata = testSparse)\n\ntable(predictSVM)\n\nconfusionMatrix(predictSVM, testSparse$sentimiento)\n\n\n\n# Nubes de palabras\nlibrary(wordcloud)\npositive <- subset(tweetsSparse, tweetsSparse$sentimiento==1)\npositive$sentimiento <- NULL\npositivas <- as.data.frame(colSums(positive))\npositivas$words <- row.names(positivas)\ncolnames(positivas) <- c(\"freq\",\"word\")\nwordcloud(positivas$word, positivas$freq, random.order = FALSE, colors = brewer.pal(8 , \"Dark2\"), max.words = 50, res=100)\n\n\n\n\n\n\n\n",
+    "created" : 1499434443142.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2419023373",
+    "id" : "B60CB8A0",
+    "lastKnownWriteTime" : 1499573268,
+    "last_content_update" : 1499573268736,
+    "path" : "~/R/ProyectoGP32/ProyectoFinal.R",
+    "project_path" : "ProyectoFinal.R",
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

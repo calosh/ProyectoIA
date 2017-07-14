@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "\nareColors <- function(x) {\n  sapply(x, function(X) {\n    tryCatch(is.matrix(col2rgb(X)), \n             error = function(e) FALSE)\n  })\n}\n\nareColors(c(NA, \"black\", \"blackk\", \"1\", \"#00\", \"#0C5290\",\"#D5E046\"))\n\n\n\n# Grafica 2\n\n# Pie Chart with Percentages\nslices <- c(758, 702, 361, 344) \nlbls <- c(\"POS Moreno\", \"NEG Moreno\", \"POS Lasso\", \"NEG Lasso\")\npct <- round(slices/sum(slices)*100)\nlbls <- paste(lbls, pct) # add percents to labels \nlbls <- paste(lbls,\"%\",sep=\"\") # ad % to labels \n#pie(slices,labels = lbls, col=rainbow(length(lbls)),main=\"Tweets POS y NEG sobre Candidatos\")\n\npie(slices,labels = lbls, col = c(\"#D7E23E\",\"#3A4C02\", \"#053679\",\"#273C6A\") , main=\"Tweets POS y NEG sobre Candidatos\")\n\n\n# Grafica 3\n\n# Pie Chart with Percentages\nslices <- c(1102, 1063)\nlbls <- c(\"Moreno\", \"Lasso\")\npct <- round(slices/sum(slices)*100)\nlbls <- paste(lbls, pct) # add percents to labels \nlbls <- paste(lbls,\"%\",sep=\"\") # ad % to labels \n#pie(slices,labels = lbls, col=rainbow(length(lbls)),main=\"Tweets POS y NEG sobre Candidatos\")\n\npie(slices,labels = lbls, col = c(\"#D7E23E\", \"#053679\") , main=\"Estimación Intención voto\")\n",
+    "created" : 1499953007083.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "13217484",
+    "id" : "A801B671",
+    "lastKnownWriteTime" : 1499956184,
+    "last_content_update" : 1499956182463,
+    "path" : "F:/Graficos IA/ProyectoGP32/graficos2.R",
+    "project_path" : "graficos2.R",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

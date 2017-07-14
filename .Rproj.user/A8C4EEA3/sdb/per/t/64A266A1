@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "# library\nlibrary(ggplot2)\n\n#Grafica 1\n# create a dataset\nspecie=c(rep(\"Moreno\" , 2) , rep(\"Lasso\" , 2))\ncondition=rep(c(\"positivo\" , \"negativo\" ) , 2)\n#value=abs(rnorm(4 , 0 , 15))\nvalue=c(758,702,361,344)\ndata=data.frame(specie,condition,value)\n\n# Grouped\nggplot(data, aes(fill=condition, y=value, x=specie)) + \n  geom_bar(position=\"dodge\", stat=\"identity\")+\n  scale_fill_manual(values = c(\"#BDBDBD\",\"#81F7F3\") )\n\n\n\n\n",
+    "created" : 1499953003855.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1961617655",
+    "id" : "64A266A1",
+    "lastKnownWriteTime" : 1499957598,
+    "last_content_update" : 1499957597781,
+    "path" : "F:/Graficos IA/ProyectoGP32/graficos.R",
+    "project_path" : "graficos.R",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
